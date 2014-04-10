@@ -59,6 +59,7 @@ class User extends CI_Controller{
 			 $result = $this->user_model->login($data);
 	
 		     $this->load->view('user/home', $result[0]);
+		     $this->load->view('templates/usersidebar');
 		    
 			
 		 }
