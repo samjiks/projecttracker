@@ -54,14 +54,22 @@ class User extends CI_Controller{
 			 $data['username'] = $this->input->post('username');
 			 $data['password'] = $this->input->post('password');
 
-			 $this->load->model("user/user_model");
+				 $this->load->model("user/user_model");
 
-			 $result = $this->user_model->login($data);
+				 $result = $this->user_model->login($data);
 	
-		     $this->load->view('user/home', $result[0]);
-		     $this->load->view('templates/usersidebar');
-		    
-			
+		
+			 if(count($result) > 0){
+
+		    	 $this->load->view('user/home', $result[0]);
+		    	 $this->load->view('templates/usersidebar');
+
+		     }else{
+		     	$data['result'] = "No such username or password";
+
+		   		 $this->load->view('login', $data);
+
+		     }
 		 }
 		 $this->load->view('templates/footer');
 	

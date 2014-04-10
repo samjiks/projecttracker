@@ -15,6 +15,7 @@ class Project extends CI_Controller{
 	public function create_project(){
 
 	     $this->load->view('templates/header');	
+	     $this->load->view('project/create');
 		 $this->load->view('templates/footer');
 
 	}
