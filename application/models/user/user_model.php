@@ -32,4 +32,11 @@ class User_model extends CI_MODEL{
 		return $query->result();
 	
 	}
+
+	public function list_users(){
+		$this->db->select('col_username');
+		$this->db->from(REGISTRATION_TABLE);
+		$query = $this->db->get();
+		return $query->result_array();
+	}
 }

@@ -1,7 +1,6 @@
-
-		<div>
-                    <p class='alert'> <?php isset($result)? print_r($result) : "No data"; ?></p> <!-- Problem here -->
-				 </div>
+    <div>
+      <p class='alert'> <?php isset($result)? print_r($result) : "No data"; ?></p> <!-- Problem here -->
+    </div>
       <?php echo form_open("project/create_project_submit") ?>
         <h4 class="form-signin-heading">Create Project</h4>
         <label> Project Name: </label>

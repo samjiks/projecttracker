@@ -5,21 +5,29 @@ class Project extends CI_Controller{
 	function __construct(){
 		parent::__construct();
 
+ 		$array = array(
+		   'project/project_model' => 'project_model',
+		   'user/user_model' => 'user_model'
+		);
+
+		foreach($array as $key => $value){
+			$this->load->model($key, $value);
+		}
+
+
 	}
 
 	public function list_project(){
 
 	     $this->load->view('templates/header');	
+	     $this->load->view('templates/adminsidebar');	
 	     $this->load->model('project/project_model');
-		 $result =  $this->project_model->list_projects();
+		 $result['listproject'] =  $this->project_model->list_projects();
 
 		 if(count($result) > 0){
-		 	$i =0;
-		  foreach ($result as $value){
-		 	 echo  $value[$i];
-		 	 $i++;
-		 
-		 }
+		 //	print_r($result);
+		    $this->load->view('project/listproject', $result);
+
 		 }
 
 
@@ -63,7 +71,35 @@ class Project extends CI_Controller{
 	public function assign_project(){
 
  		 $this->load->view('templates/header');	
-		 $this->load->view('templates/footer');
+ 		 $this->load->view('templates/adminsidebar');
+		 
+
+
+		$data['get_projects'] = $this->project_model->list_projects();
+		$data['get_users'] = $this->user_model->list_users();
+
+		$this->load->view('project/assignproject', $data);
+
+		$this->load->view('templates/footer');
+	}
+
+	public function assign_project_save(){
+		 
+		$this->load->view('templates/header');	
+ 		$this->load->view('templates/adminsidebar');
+
+		$data['projectname'] = $this->input->post('projects');
+		$data['username'] = $this->input->post('users');
+
+		$result = $this->project_model->assign_project($data);
+		$message['result'] = "Project has been assigned to the user";
+
+		if($result > 0){
+		
+			$this->load->view('project/assignproject', $message);
+		}
+
+		$this->load->view('templates/footer');
 	}
 
 	public function create_task(){
