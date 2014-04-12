@@ -1,4 +1,5 @@
-<?php
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
 
 class Project extends CI_Controller{
 	
@@ -32,7 +33,18 @@ class Project extends CI_Controller{
 
 
 		 $this->load->view('templates/footer');
+
+		 return $result;
 	}
+
+	public function list_project_json(){
+
+		 $result =  $this->project_model->list_projects();
+		 header('Content-Type: application/json');
+   		 echo json_encode( $result );
+	}
+
+
 
 	public function create_project(){
 

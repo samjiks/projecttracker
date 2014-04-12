@@ -1,4 +1,5 @@
-<?php
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
 
 class User extends CI_Controller{
     public $USER;
@@ -38,13 +39,24 @@ class User extends CI_Controller{
 		$this->load->view('templates/footer');
     	//echo "Signing up!";
 	}
-		public function login_page(){
+	public function login_page(){
 
 		  $this->load->view('templates/header');	
 		  $this->load->view('login');
 		  $this->load->view('templates/footer');
 
 	}
+
+	public function logout_page(){
+
+		  $this->load->view('templates/header');
+		 // echo $session =  $this->input->post('session_id';	
+		  $this->load->view('login');
+  		  $this->session->unset_userdata('session_id');
+		  $this->load->view('templates/footer');
+
+	}
+
 
 	public function login(){
 
@@ -61,17 +73,18 @@ class User extends CI_Controller{
 	
 		
 			 if(count($result) > 0){
+			 	//print_r($result[0]->col_username);
+				 $USER['col_username'] = $result[0]->col_username;
 
-				 $USER = $result[0];
+				 $this->session->set_userdata('username', $USER);
 
-		    	 $this->load->view('user/home', $result[0]);
-
+		    	 $this->load->view('user/home', $USER);
+		    	// print_r($this->session->all_userdata());
 		    	 $this->load->view('templates/usersidebar');
 
 		     }else{
 		        	$data['result'] = "No such username or password";
-
-		   		 $this->load->view('login', $data);
+			   		 $this->load->view('login', $data);
 
 		     }
 		 }
@@ -88,10 +101,9 @@ class User extends CI_Controller{
 	}
 
 	public function create_task(){
-		GLOBAL $USER;
+		
 		  $this->load->view('templates/header');	
 		  $this->load->view('templates/usersidebar');
-		  echo $USER;
 		  $this->load->view('user/home');
 		  $this->load->view('templates/footer');	
 		 

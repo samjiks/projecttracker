@@ -1,11 +1,7 @@
 <script>
-	$(document).ready(function(){
-		alert("hi");
-	})
-
-	$('#btn-login').click(function(){
+	/*$('#btn-login').click(function(){
 		alert("HI");
-	});
+	});*/
 </script>
 <?php echo form_open('user/login'); ?>
 <div class="container">    
@@ -37,10 +33,6 @@
                                         <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i>Password: </span>
                                         <input id="login-password" type="password" class="form-control" name="password" style="height: 30px"  placeholder="password">
                                     </div>
-                                    
-
-                              
-
 
                                 <div style="margin-top:10px" class="form-group">
                                     <!-- Button -->

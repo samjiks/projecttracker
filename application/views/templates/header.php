@@ -25,8 +25,10 @@
    </div>
    <div>
       <ul class="nav navbar-nav navbar-right">
-               <li><a class="active" href="<?php echo base_url(); ?>index.php/user/registration">Sign Up</a></li>
-                <li><a class="active" href="<?php echo base_url(); ?>index.php/user/login_page">Login</a></li>
+           <li><a class="active" href="<?php echo base_url(); ?>index.php/user/registration">Sign Up</a></li>
+          <li><a class="login" value="login" href="<?php echo base_url(); ?>index.php/user/login_page">Login</a></li>
+<!--           <li><a class="logout" style="display: none;">Logout</a></li>  -->
+         <li><a class="logout" style="display: none;" href="<?php echo base_url(); ?>index.php/user/logout_page">Logout</a></li>  
       </ul>
    </div>
 </nav>
