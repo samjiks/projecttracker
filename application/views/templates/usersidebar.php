@@ -1,12 +1,11 @@
-  <div class="container">
-      <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
-          <ul class="nav nav-sidebar">
+
+  <div class="col-md-2">
+          <ul class="nav nav-sidebar nav-list">
             <li class="active"><a href="#">Project Management</a></li>
-            <li><a href="<?php echo base_url(); ?>index.php/project/list_project">List Projects</a></li>
-            <li><a href="<?php echo base_url(); ?>index.php/project/create_project">Create Tasks for Projects</a></li>
-            <li><a href="<?php echo base_url(); ?>index.php/project/assign_project">Assign</a></li>
+            <li><a href="<?php echo base_url(); ?>index.php/user/create_task">Create Task</a></li>
+            <li><a href="<?php echo base_url(); ?>index.php/user/list_project_tasks">List Project Tasks
+            </a></li>
+            <li><a href="<?php echo base_url(); ?>index.php/project/create_activity">Create Activity</a></li>
           </ul>
-     </div>
   </div>
- </div>
+
