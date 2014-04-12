@@ -1,10 +1,10 @@
 <?php
 
 class User extends CI_Controller{
-
+    public $USER;
     public function __construct(){
     	parent::__construct();
-    	$this->load->library('javascript');
+    	$this->load->library('session');
     }
 	
 	public function registration(){
@@ -19,6 +19,7 @@ class User extends CI_Controller{
 	}
 
 	public function signup() {
+		GLOBAL $USER;
 
 	    $data = array(
 	    	    'col_username' => $this->input->post('username'), 
@@ -61,11 +62,14 @@ class User extends CI_Controller{
 		
 			 if(count($result) > 0){
 
+				 $USER = $result[0];
+
 		    	 $this->load->view('user/home', $result[0]);
+
 		    	 $this->load->view('templates/usersidebar');
 
 		     }else{
-		     	$data['result'] = "No such username or password";
+		        	$data['result'] = "No such username or password";
 
 		   		 $this->load->view('login', $data);
 
@@ -81,5 +85,20 @@ class User extends CI_Controller{
 		 $result = $this->user_model->login($data);
 		 $this->load->view('templates/footer');
 */
+	}
+
+	public function create_task(){
+		GLOBAL $USER;
+		  $this->load->view('templates/header');	
+		  $this->load->view('templates/usersidebar');
+		  echo $USER;
+		  $this->load->view('user/home');
+		  $this->load->view('templates/footer');	
+		 
+		 
+	}
+
+	function list_project(){
+
 	}
 }

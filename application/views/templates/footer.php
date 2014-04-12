@@ -1,3 +1,4 @@
+</div>
 <hr>
     <div id="footer" style="margin-bottom: 0">
       <div class="container">
