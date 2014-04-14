@@ -85,14 +85,13 @@ class User extends CI_Controller{
 			 	//print_r($result[0]->col_username);
 				 $USER['col_username'] = $result[0]->col_username;
 
-				 $projectlist['string'] = $this->get_project_username($result[0]->col_username);
+				 $USER['projectlist'] = $this->get_project_username($result[0]->col_username);
 		
-			
 				 $this->session->set_userdata('username', $USER);
-
+    			 $this->load->view('templates/usersidebar');
 		    	 $this->load->view('user/home', $USER);
 		    	// print_r($this->session->all_userdata());
-		    	 $this->load->view('templates/usersidebar');
+		
 
 		     }else{
 		        	$data['result'] = "No such username or password";
@@ -124,10 +123,12 @@ class User extends CI_Controller{
 
 	function get_project_username($username){
 
-	    
-	 	 echo $this->project_model->get_project_by_username($username);
-
-	  	//return $result;
+	 	 $result = $this->project_model->get_project_by_username($username);
+	 	 return $result;
+	 	/* header('Content-Type: application/json');
+   		 echo json_encode( $result );*/
+	 	 //return json_encode($result);
+	//	 $this->output->set_content_type('application/json')->set_output(json_encode($result));
 	}
 
 

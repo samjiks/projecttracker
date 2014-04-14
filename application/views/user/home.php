@@ -1,9 +1,59 @@
 <script>
-
 $(document).ready(function(){
-alert("hi");
-	$.post("<?php echo base_url(); ?>index.php/project/list_project_json", function(data) {
-		$(".listprojects").append("<p id='list5'>");
+		$( ".startdate,.enddate" ).datepicker({ dateFormat: 'dd-mm-yy'});
+
+		  $('#projectlink').on("click", this, function (e) {
+    		var href = $(this).attr('href');
+    		e.preventDefault();
+		  });
+
+			$('.addtask').on("click", this, function (e) {
+	
+    				$(this).next().toggle('fast');
+			//	var project = $(this).data('projectname');
+
+				// var project = $(this).prev('.projectlink').text();
+		   		 //var userid = $(this).prev('#addtask').attr('href');
+        	//	alert(project);
+        });
+	
+
+
+		$('.formbutton').click(function(event){
+			event.preventDefault();
+				var data = $(this).closest('form').serialize();
+
+		//	var formserialize = $(this).serialize());
+			$.ajax({
+				type: "post",
+				url:  "<?php echo base_url(); ?>index.php/project/create_task",
+				data: data,
+	  			 success: function(response){
+     			   $('#response').html(response);
+   
+    			},
+    			error: function(jqXHR, textStatus, errorThrown){
+    			    console.log("The following error occured: "+
+                    textStatus, errorThrown);
+                    		   alert("TEST");
+   				 }
+
+			});		  
+		});
+
+
+/*		$('#form').on( "submit", function( event ) {
+			  alert("Submitted");
+			  		alert($('#form').serializeArray());
+				event.preventDefault();
+	
+		});*/
+});
+
+/*$(document).ready(function(){
+	$.post("<?php echo base_url(); ?>index.php/user/get_project_username", function(data) {
+	/*$.post("<?php echo base_url(); ?>index.php/project/list_project_json", function(data) {*/
+/*		$(".listprojects").append("<p id='list5'>");
 
 		$.each( data, function( key, value ) {
 			 
@@ -22,8 +72,8 @@ alert("hi");
 		});
 
 		$('.listprojects').append("</p>");
-
-		  $('.projectanchor').on("click", this, function (e) {
+*/
+/*		  $('.projectanchor').on("click", this, function (e) {
     			var href = $(this).attr('href');
               	alert(this);
                 event.preventDefault();
@@ -37,15 +87,16 @@ alert("hi");
 		  });
 
 
+
 /*		 $("#div-my-table").text("<table>");
 		 $.each(data, function(i, item) {
      	       $("#div-my-table").append("<tr><td>" + item[0] +"</td><td>" + item[1] + "</td></tr>");
         });
-        $("#div-my-table").append("</table>");*/
+        $("#div-my-table").append("</table>");
 	});
 
-});
-
+}); 
+*/
 
 </script>
 
@@ -60,14 +111,72 @@ alert("hi");
 	    echo "<script> $( '.logout' ).css( 'display', function( index ) { index = ''; return index; });</script>";
 	}
 ?>
-    
-
-
-<div class="col-md-6 col-md-offset-3" >
-	<div class="gui">
-	<div class="listprojects"></div>
-	</div>
-
+ <div id="page-content-wrapper">
+			 <div class="page-content inset">
+				   <h4 class="content-header">
+	                      <u>Projects</u>
+	                </h4>
+				     <div class="row">           
+						 <div class="col-md-12" >
+							<div class="gui">
+								<div id="listprojects">
+						 		<?php
+								
+										foreach ($projectlist as $value) {
+											foreach ($value as $values){
+											
+												echo "<p class='lead' href='".base_url()."index.php/project/get_by_projectname/$values'>$values</p>";
+												echo "<input type='button' class='addtask' data-projectname='$values' value='Add Task'>";
+												echo "<div class='panel' style='padding:10px; display:none'>
+												<div id='response'></div>
+												<form id ='form' class='form-horizontal' role='form'>
+												  <div class='form-group'>
+												    <label for='taskname' class='col-sm-3 control-label'>Task Name</label>
+												    <div class='col-sm-9'>
+												      <input type='text' class='form-control' name='taskname' id='taskname' placeholder='Task Name'>
+												    </div>
+												  </div>
+												    <div class='form-group'>
+												    <label for='startdate' class='col-sm-3 control-label'>Start Date</label>
+												    <div class='col-sm-9'>
+												     <input type='text' class=' form-control startdate' name='startdate'  placeholder='Start Date'>
+												    </div>
+												  </div>
+												   <div class='form-group'>
+												    <label for='enddate' class='col-sm-3 control-label'>End Date</label>
+												    <div class='col-sm-9'>
+												      <input type='text' class='form-control enddate' name='enddate'  placeholder='End Date'>
+												    </div>
+												  </div>
+												  <div class='form-group'>
+												    <label for='status' class='col-sm-3 control-label'>Status</label>
+												    <div class='col-sm-9'>
+												      <input type='text' class='form-control'id='status' name='status' placeholder='Status'>
+												    </div>
+												  </div>
+												   <div class='form-group'>
+												    <label for='Percentage Completed' class='col-sm-3 control-label'>Percentage Completed</label>
+												    <div class='col-sm-9'>
+												      <input type='text' class='form-control' id='percentage' name='percentage' placeholder='Percentage Completed'>
+												    </div>
+												  </div>
+											
+												  <div class='form-group'>
+												    <div class='col-sm-offset-2 col-sm-10'>
+												      <input type='button' value='Create Task' class='formbutton' class='btn btn-default'>
+												    </div>
+												  </div>
+												  </form>
+												</div>
+												";
+											}
+									}
+									?>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 </div>
-</div>
+
 
