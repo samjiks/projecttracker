@@ -1,4 +1,4 @@
-
+<div class="row">
   <div class="col-md-2">
           <ul class="nav nav-sidebar nav-list">
             <li class="active"><a href="#">Project Management</a></li>

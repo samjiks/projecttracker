@@ -37,6 +37,10 @@ class Project extends CI_Controller{
 		 return $result;
 	}
 
+	public function get_by_projectname($projectname){
+			echo $projectname;
+	}
+
 	public function list_project_json(){
 
 		 $result =  $this->project_model->list_projects();

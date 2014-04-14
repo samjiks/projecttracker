@@ -6,6 +6,15 @@ class User extends CI_Controller{
     public function __construct(){
     	parent::__construct();
     	$this->load->library('session');
+    	$array = array(
+		   'project/project_model' => 'project_model',
+		   'user/user_model' => 'user_model'
+		);
+
+		foreach($array as $key => $value){
+			$this->load->model($key, $value);
+		}
+
     }
 	
 	public function registration(){
@@ -76,6 +85,9 @@ class User extends CI_Controller{
 			 	//print_r($result[0]->col_username);
 				 $USER['col_username'] = $result[0]->col_username;
 
+				 $projectlist['string'] = $this->get_project_username($result[0]->col_username);
+		
+			
 				 $this->session->set_userdata('username', $USER);
 
 		    	 $this->load->view('user/home', $USER);
@@ -110,7 +122,13 @@ class User extends CI_Controller{
 		 
 	}
 
-	function list_project(){
+	function get_project_username($username){
 
+	    
+	 	 echo $this->project_model->get_project_by_username($username);
+
+	  	//return $result;
 	}
+
+
 }

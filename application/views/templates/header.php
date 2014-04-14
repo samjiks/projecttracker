@@ -13,10 +13,13 @@
 <meta name="author" content="Samuel Thampy">
 <link href="<?php echo base_url("/assets/css/bootstrap.css"); ?>" rel="stylesheet"> 
 <link href="<?php echo base_url("/assets/css/bootstrap.min.css"); ?>" rel="stylesheet"> 
+<link href="<?php echo base_url("/assets/css/mystyles.css"); ?>" rel="stylesheet"> 
 	<script src="<?php echo base_url("/assets/js/jquery-2.1.0.min.js") ?>" type="text/javascript"></script>
 	<script src="<?php echo base_url("/assets/js/bootstrap.js") ?>" type="text/javascript"></script>
 	<script src="<?php echo base_url("/assets/js/bootstrap.min.js") ?>" type="text/javascript"></script>
+  <script src="<?php echo base_url("/assets/js/jquery.session.js") ?>" type="text/javascript"></script>
 	<script src="<?php echo base_url("/assets/js/kickstart.js") ?>" type="text/javascript"></script>
+  
 </head>
 <body>
 <nav class="navbar navbar-inverse" role="navigation">
@@ -32,7 +35,7 @@
       </ul>
    </div>
 </nav>
-<div class="container">
+<div class="container-fluid">
 
 
 
