@@ -28,18 +28,20 @@ class Project_model extends CI_Model{
 		$data = array();
 		if($project_query->num_rows() > 0){
 			foreach ($project_query->result() as $row){
-   				$data[] = $row->col_projectid; 
+   				$data['projectid'] = $row->col_projectid; 
    				
 			}
 		}
 
 		if($user_query->num_rows() > 0){
 			foreach ($user_query->result() as $row){
-   				$data[] = $row->col_userid;
+   				$data['userid'] = $row->col_userid;
 			}
 		}
-		$this->db->set('col_userid',$data[1]);
-		$this->db->set('col_projectid',$data[0]);
+		echo "USER ID".$data['userid'];
+		echo "PROJECT ID".$data['projectid'];
+		$this->db->set('col_userid',$data['userid']);
+		$this->db->set('col_projectid',$data['projectid']);
 		$this->db->insert('tbl_projectuserassign'); 
 		
 		$num = $this->db->affected_rows();
@@ -73,16 +75,23 @@ class Project_model extends CI_Model{
 	}
 
 	function get_tasks_by_project($data=array()){
-		echo $taskname = $data['taskname'];
-		echo $startdate = $data['startdate'];
-		echo $enddate = $data['enddate'];
-		echo $status = $data['status'];
-		echo $projectname = $data['projecthiddenid'];
-		echo $percentage = $data['percentage'];
-
+		
+		$taskname = $data['taskname'];
+		$startdate = $data['startdate'];
+		$enddate = $data['enddate'];
+		$status = $data['status'];
+		$projectname = $data['projecthiddenid'];
+		$percentage = $data['percentage'];
+		
+		//echo $compileddate = STR_TO_DATE($startdate, '%d-%m-%Y');
 		$getprojectid = $this->db->query("select col_projectid from tbl_project where col_projectname='$projectname'");
+		
+		$query = $this->db->query("Insert into tbl_projecttasks (col_projectid, col_taskname, col_startdate, col_enddate, col_statustasks, col_percentage_complete) VALUES ('".$this->db->escape_str($getprojectid->row()->col_projectid)."', '$taskname', '$startdate', '$enddate', '$status', '$percentage')");
 
-		echo $getprojectid->result();
+		//echo $getprojectid;
+		$gettasksname = $this->db->query("Select col_taskname from tbl_projecttasks where col_projectid='".$this->db->escape_str($getprojectid->row()->col_projectid)."'");
+
+		return $gettasksname->result_array();
 		//$query = $this->db->query("Insert into col_projecttasks (col_projectid, col_taskname, col_startdate, col_enddate, col_statustasks, col_percentage_complete) VALUES (col_projectid, $taskname, $startdate, $enddate, $status, $percentage) select col_projectid from tbl_project where col_projectname='$projectname'")
 		/*$this->db->set('name', $name);
 		$this->db->set('title', $title);

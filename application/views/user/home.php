@@ -29,8 +29,12 @@ $(document).ready(function(){
 				cache: "false",
 				url:  "<?php echo base_url(); ?>index.php/project/create_task",
 				data: data,
+				dataType: "json",
 	  			 success: function(response){
-     			   $('#response').html(response);
+					$('#response').empty();
+	  			 	for(x in response){
+	  			 	 	$('#response').append('<p>'+response[x].col_taskname+'<a class="editprojecttask">Edit Task</a> <a class="createactivitytask">Create Activity</a></p>');
+	  			 	}
     			},
     			error: function(jqXHR, textStatus, errorThrown){
     			    console.log("The following error occured: "+textStatus, errorThrown);
@@ -39,6 +43,9 @@ $(document).ready(function(){
 			});		  
 		});
 
+		$(".editprojecttask").click(function(){
+			 $( ".activity-form" ).dialog("open");
+		});
 
 /*		$('#form').on( "submit", function( event ) {
 			  alert("Submitted");
@@ -46,6 +53,7 @@ $(document).ready(function(){
 				event.preventDefault();
 	
 		});*/
+
 });
 
 /*$(document).ready(function(){
@@ -116,6 +124,8 @@ $(document).ready(function(){
 	                </h4>
 				     <div class="row">           
 						 <div class="col-md-12" >
+						 <?php echo validation_errors(); ?>
+
 							<div class="gui">
 								<div id="listprojects">
 						 		<?php
@@ -182,5 +192,37 @@ $(document).ready(function(){
 					</div>
 				</div>
 </div>
-
+		<div class="activity-form" title="Create Activty for users">
+			<form id ='form' class='form-horizontal' role='form'>
+				<div class='form-group'>
+						  <label for='Task Name' class='col-sm-3 control-label'>Task  Name</label>
+						    <div class='col-sm-9'>
+						      <input type='text' class='form-control taskname' name='taskname' id='taskname'>
+						    </div>
+				</div>
+				<div class='form-group'>
+				 	<label for='ActivityDescription' class='col-sm-3 control-label'>Activity Description</label>
+				 	    <div class='col-sm-9'>
+						     <input type='text' class='form-control ActivityDescription' name='ActivityDescription' id='ActivityDescription'>
+						</div>
+			    </div>
+			    <div class='form-group'>
+				 	<label for='durationworked' class='col-sm-3 control-label'>Duration worked</label>
+				 	    <div class='col-sm-9'>
+						     <input type='text' class='form-control durationworked' name='durationworked' id='durationworked'>
+						</div>
+			    </div>
+			    <div class='form-group'>
+				 	<label for='durationworked' class='col-sm-3 control-label'>Duration worked</label>
+				 	    <div class='col-sm-9'>
+						     <input type='text' class='form-control durationworked' name='durationworked' id='durationworked'>
+						</div>
+			    </div>
+				  <div class='form-group'>
+					    <div class='col-sm-offset-2 col-sm-10'>
+						      <input type='submit' value='Create Activity' class='formbutton' class='btn btn-default'>
+					    </div>
+				</div>
+			</form>
+		</div>
 

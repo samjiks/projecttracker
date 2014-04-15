@@ -124,11 +124,27 @@ class Project extends CI_Controller{
 			$data['status'] = $this->input->post('status');
 			$data['percentage'] = $this->input->post('percentage');
 			$data['projecthiddenid'] = $this->input->post('projecthiddenid');
-			$result = $this->project_model->get_tasks_by_project($data);
+			
+			$this->form_validation->set_rules('taskname', 'Taskname', 'required');
+			$this->form_validation->set_rules('startdate', 'Startdate', 'required');
+			$this->form_validation->set_rules('enddate', 'Enddate', 'required');
+			$this->form_validation->set_rules('status', 'status', 'required');
+			$this->form_validation->set_rules('percentage', 'percentageCompleted', 'required');
+			$this->form_validation->set_rules('projecthiddenid', 'ProjectID', 'required');
 
-
+			if ($this->form_validation->run() == TRUE){
+				$result = $this->project_model->get_tasks_by_project($data);
+				
+				echo json_encode($result);
+			}else{
+				$this->load->view('user/home');
+			}
+		/*	
+			if(empty($result)){
+				$result['message'] = "No tasks for project created";
+			}*/
 			//header('Content-Type: application/json');
-   		 	echo json_encode($data);
+   		 	
 			//$result = $this->project_model->assign_project($data);
 		//	return json_encode($data);
 		}

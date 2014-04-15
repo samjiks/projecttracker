@@ -49,7 +49,7 @@ class User extends CI_Controller{
     	//echo "Signing up!";
 	}
 	public function login_page(){
-
+		  
 		  $this->load->view('templates/header');	
 		  $this->load->view('login');
 		  $this->load->view('templates/footer');
@@ -60,6 +60,7 @@ class User extends CI_Controller{
 
 		  $this->load->view('templates/header');
 		 // echo $session =  $this->input->post('session_id';	
+
 		  $this->load->view('login');
   		  $this->session->unset_userdata('session_id');
 		  $this->load->view('templates/footer');
