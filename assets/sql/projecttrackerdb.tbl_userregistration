@@ -24,3 +24,28 @@ CREATE TABLE `tbl_projectuserassign` (
   `col_projectid` int(11) DEFAULT NULL,
   PRIMARY KEY (`col_projectuserassignid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `projecttrackerdb`.`tbl_projecttasks` (
+  `col_tasksid` INT NOT NULL,
+  `col_projectid` INT NULL,
+  `col_taskname` VARCHAR(45) NULL,
+  `col_startdate` DATE NULL,
+  `col_enddate` DATE NULL,
+  `col_statustasks` INT NULL,
+  `col_percentage_complete` INT NULL,
+  PRIMARY KEY (`col_tasksid`));
+
+  
+ALTER TABLE `projecttrackerdb`.`tbl_project` 
+CHANGE COLUMN `col_projectdescription` `col_projectdescription` VARCHAR(100) NULL DEFAULT NULL ,
+ADD COLUMN `col_projectstatus` VARCHAR(20) NULL AFTER `col_projectdescription`;
+
+CREATE TABLE `projecttrackerdb`.`tbl_taskactivity` (
+  `col_taskactivityid` INT NOT NULL AUTO_INCREMENT,
+  `col_taskid` VARCHAR(45) NULL,
+  `col_taskdecription` VARCHAR(100) NULL,
+  `col_taskactualduration` VARCHAR(10) NULL,
+  `col_duration` VARCHAR(10) NULL,
+  PRIMARY KEY (`col_taskactivityid`));
+

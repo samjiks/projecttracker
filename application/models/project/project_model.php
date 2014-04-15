@@ -71,4 +71,21 @@ class Project_model extends CI_Model{
 		//	return project_query->result();
 			//return $project_query->result_array();
 	}
+
+	function get_tasks_by_project($data=array()){
+		echo $taskname = $data['taskname'];
+		echo $startdate = $data['startdate'];
+		echo $enddate = $data['enddate'];
+		echo $status = $data['status'];
+		echo $projectname = $data['projecthiddenid'];
+		echo $percentage = $data['percentage'];
+
+		$getprojectid = $this->db->query("select col_projectid from tbl_project where col_projectname='$projectname'");
+
+		echo $getprojectid->result();
+		//$query = $this->db->query("Insert into col_projecttasks (col_projectid, col_taskname, col_startdate, col_enddate, col_statustasks, col_percentage_complete) VALUES (col_projectid, $taskname, $startdate, $enddate, $status, $percentage) select col_projectid from tbl_project where col_projectname='$projectname'")
+		/*$this->db->set('name', $name);
+		$this->db->set('title', $title);
+		$this->db->set('status', $status);*/
+	}
 }

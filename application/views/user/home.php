@@ -9,7 +9,7 @@ $(document).ready(function(){
 
 			$('.addtask').on("click", this, function (e) {
 	
-    				$(this).next().toggle('fast');
+    				$(this).next().toggle('medium');
 			//	var project = $(this).data('projectname');
 
 				// var project = $(this).prev('.projectlink').text();
@@ -26,16 +26,14 @@ $(document).ready(function(){
 		//	var formserialize = $(this).serialize());
 			$.ajax({
 				type: "post",
+				cache: "false",
 				url:  "<?php echo base_url(); ?>index.php/project/create_task",
 				data: data,
 	  			 success: function(response){
      			   $('#response').html(response);
-   
     			},
     			error: function(jqXHR, textStatus, errorThrown){
-    			    console.log("The following error occured: "+
-                    textStatus, errorThrown);
-                    		   alert("TEST");
+    			    console.log("The following error occured: "+textStatus, errorThrown);
    				 }
 
 			});		  
@@ -130,10 +128,16 @@ $(document).ready(function(){
 												echo "<div class='panel' style='padding:10px; display:none'>
 												<div id='response'></div>
 												<form id ='form' class='form-horizontal' role='form'>
+												 <div class='form-group'>
+												  <label for='projectid' class='col-sm-3 control-label'>Project Name</label>
+												    <div class='col-sm-9'>
+												      <input type='text' class='form-control projectid' value='$values' name='projecthiddenid' id='projecthiddenid'>
+												    </div>
+												  </div>
 												  <div class='form-group'>
 												    <label for='taskname' class='col-sm-3 control-label'>Task Name</label>
 												    <div class='col-sm-9'>
-												      <input type='text' class='form-control' name='taskname' id='taskname' placeholder='Task Name'>
+												      <input type='text' class='form-control taskname' name='taskname' id='taskname' placeholder='Task Name'>
 												    </div>
 												  </div>
 												    <div class='form-group'>
@@ -151,24 +155,24 @@ $(document).ready(function(){
 												  <div class='form-group'>
 												    <label for='status' class='col-sm-3 control-label'>Status</label>
 												    <div class='col-sm-9'>
-												      <input type='text' class='form-control'id='status' name='status' placeholder='Status'>
+												      <input type='text' class='form-control status' id='status' name='status' placeholder='Status'>
 												    </div>
 												  </div>
 												   <div class='form-group'>
 												    <label for='Percentage Completed' class='col-sm-3 control-label'>Percentage Completed</label>
 												    <div class='col-sm-9'>
-												      <input type='text' class='form-control' id='percentage' name='percentage' placeholder='Percentage Completed'>
+												      <input type='text' class='form-control percentage' id='percentage' name='percentage' placeholder='Percentage Completed'>
 												    </div>
 												  </div>
+										
 											
 												  <div class='form-group'>
 												    <div class='col-sm-offset-2 col-sm-10'>
-												      <input type='button' value='Create Task' class='formbutton' class='btn btn-default'>
+												      <input type='submit' value='Create Task' class='formbutton' class='btn btn-default'>
 												    </div>
 												  </div>
 												  </form>
-												</div>
-												";
+												</div>";
 											}
 									}
 									?>

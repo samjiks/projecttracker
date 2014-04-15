@@ -117,14 +117,18 @@ class Project extends CI_Controller{
 		}
 
 		public function create_task(){
+			
 			$data['taskname'] = $this->input->post('taskname');
 			$data['startdate'] = $this->input->post('startdate');
 			$data['enddate'] = $this->input->post('enddate');
 			$data['status'] = $this->input->post('status');
 			$data['percentage'] = $this->input->post('percentage');
+			$data['projecthiddenid'] = $this->input->post('projecthiddenid');
+			$result = $this->project_model->get_tasks_by_project($data);
+
 
 			//header('Content-Type: application/json');
-   		 	echo json_encode( $data );
+   		 	echo json_encode($data);
 			//$result = $this->project_model->assign_project($data);
 		//	return json_encode($data);
 		}
