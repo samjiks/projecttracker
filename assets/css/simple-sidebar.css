@@ -8,8 +8,8 @@
   left: 250px;
   width: 250px;
   background: #000;
-  position: fixed;
-  height: 100%;
+  position: absolute;
+  height: 300%;
   overflow-y: auto;
   z-index: 1000;
   transition: all 0.4s ease 0s;

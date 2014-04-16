@@ -134,10 +134,10 @@ class Project extends CI_Controller{
 
 			if ($this->form_validation->run() == TRUE){
 				$result = $this->project_model->get_tasks_by_project($data);
-				
 				echo json_encode($result);
 			}else{
 				$this->load->view('user/home');
+				validation_errors(); 				
 			}
 		/*	
 			if(empty($result)){
@@ -149,10 +149,17 @@ class Project extends CI_Controller{
 		//	return json_encode($data);
 		}
 
+		public function list_tasks(){
+			$data['projectname'] = $this->input->post('projectname');
+			$result = $this->project_model->list_tasks_for_project($data);
+			echo json_encode($result);
+		}
+
 		public function create_activity(){
 
-			 $this->load->view('templates/header');	
-			 $this->load->view('templates/footer');
+			//$data['']
+		//	 $this->load->view('templates/header');	
+		//	 $this->load->view('templates/footer');
 
 		}
 	}

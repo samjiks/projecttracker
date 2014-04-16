@@ -29,5 +29,11 @@
 .form-horizontal input {
 	height: inherit; !important;
 }
-	
 
+table {
+   table-layout: fixed;
+}
+.loadalltasks{
+	color: white;
+	background-color: black;
+}

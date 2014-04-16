@@ -97,4 +97,14 @@ class Project_model extends CI_Model{
 		$this->db->set('title', $title);
 		$this->db->set('status', $status);*/
 	}
+
+	function list_tasks_for_project($projectname=array()){
+		$project = $projectname['projectname'];
+		$getprojectid = $this->db->query("select col_projectid from tbl_project where col_projectname='$project'");
+
+		$gettasksname = $this->db->query("Select * from tbl_projecttasks where col_projectid='".$this->db->escape_str($getprojectid->row()->col_projectid)."'");
+
+		return $gettasksname->result_array();
+
+	}
 }
