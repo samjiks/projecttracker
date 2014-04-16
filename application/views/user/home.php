@@ -1,5 +1,14 @@
 <script>
+ $(function() {  
+	 $('#activity-form').dialog({modal:true,autoOpen:false,width:600}); 
+ 	   $('.editprojecttask').click(function(e) {
+ 	   	alert('test');
+ 	       $('#activity-form').dialog('open');
+       });
+    });
 $(document).ready(function(){
+
+
 		$( ".startdate,.enddate" ).datepicker({ dateFormat: 'dd-mm-yy'});
 
 		  $('#projectlink').on("click", this, function (e) {
@@ -20,7 +29,7 @@ $(document).ready(function(){
 
 
 		$('.formbutton').click(function(event){
-			event.preventDefault();
+			event.preventDefault()
 				var data = $(this).closest('form').serialize();
 
 		//	var formserialize = $(this).serialize());
@@ -31,21 +40,35 @@ $(document).ready(function(){
 				data: data,
 				dataType: "json",
 	  			 success: function(response){
+	  			 	if(response.length < 0){
+	  			 		$('#response').append("Less than 0");
+	  			 	}
 					$('#response').empty();
 	  			 	for(x in response){
-	  			 	 	$('#response').append('<p>'+response[x].col_taskname+'<a class="editprojecttask">Edit Task</a> <a class="createactivitytask">Create Activity</a></p>');
+	  			 	 	$('#response').append('<div>'+response[x].col_taskname+'<input type='button' id='editprojecttask' value='Edit Task'><input type='button' value='Create Activity' id='createactivitytask'></div>');
 	  			 	}
     			},
     			error: function(jqXHR, textStatus, errorThrown){
+    				$('#response').append(response);
     			    console.log("The following error occured: "+textStatus, errorThrown);
    				 }
 
 			});		  
 		});
 
-		$(".editprojecttask").click(function(){
-			 $( ".activity-form" ).dialog("open");
-		});
+
+/*   $(function() {
+    $( ".editprojecttask" ).dialog({
+      modal: true,
+      buttons: {
+        Ok: function() {
+          $( this ).dialog( "close" );
+        }
+      }
+    });
+  });
+*/
+
 
 /*		$('#form').on( "submit", function( event ) {
 			  alert("Submitted");
@@ -121,6 +144,8 @@ $(document).ready(function(){
 			 <div class="page-content inset">
 				   <h4 class="content-header">
 	                      <u>Projects</u>
+	                      
+
 	                </h4>
 				     <div class="row">           
 						 <div class="col-md-12" >
@@ -192,7 +217,7 @@ $(document).ready(function(){
 					</div>
 				</div>
 </div>
-		<div class="activity-form" title="Create Activty for users">
+		<div id="activity-form" title="Create Activty for users">
 			<form id ='form' class='form-horizontal' role='form'>
 				<div class='form-group'>
 						  <label for='Task Name' class='col-sm-3 control-label'>Task  Name</label>
@@ -203,13 +228,7 @@ $(document).ready(function(){
 				<div class='form-group'>
 				 	<label for='ActivityDescription' class='col-sm-3 control-label'>Activity Description</label>
 				 	    <div class='col-sm-9'>
-						     <input type='text' class='form-control ActivityDescription' name='ActivityDescription' id='ActivityDescription'>
-						</div>
-			    </div>
-			    <div class='form-group'>
-				 	<label for='durationworked' class='col-sm-3 control-label'>Duration worked</label>
-				 	    <div class='col-sm-9'>
-						     <input type='text' class='form-control durationworked' name='durationworked' id='durationworked'>
+						     <textarea type='text' class='form-control ActivityDescription' name='ActivityDescription' id='ActivityDescription'></textarea>
 						</div>
 			    </div>
 			    <div class='form-group'>
@@ -225,4 +244,3 @@ $(document).ready(function(){
 				</div>
 			</form>
 		</div>
-

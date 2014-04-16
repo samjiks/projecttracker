@@ -125,11 +125,11 @@ class Project extends CI_Controller{
 			$data['percentage'] = $this->input->post('percentage');
 			$data['projecthiddenid'] = $this->input->post('projecthiddenid');
 			
-			$this->form_validation->set_rules('taskname', 'Taskname', 'required');
-			$this->form_validation->set_rules('startdate', 'Startdate', 'required');
-			$this->form_validation->set_rules('enddate', 'Enddate', 'required');
-			$this->form_validation->set_rules('status', 'status', 'required');
-			$this->form_validation->set_rules('percentage', 'percentageCompleted', 'required');
+			$this->form_validation->set_rules('taskname', 'Task name', 'required');
+			$this->form_validation->set_rules('startdate', 'Start date', 'required');
+			$this->form_validation->set_rules('enddate', 'End date', 'required');
+			$this->form_validation->set_rules('status', 'Status', 'required');
+			$this->form_validation->set_rules('percentage', 'Percentage Completed', 'required');
 			$this->form_validation->set_rules('projecthiddenid', 'ProjectID', 'required');
 
 			if ($this->form_validation->run() == TRUE){

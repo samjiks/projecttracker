@@ -62,7 +62,7 @@ class Project_model extends CI_Model{
 	}
 
 	function get_project_by_username($col_username){
-			$query = $this->db->query("select col_projectname from tbl_project where col_projectid in (select col_projectid from tbl_projectuserassign where col_userid in (select col_userid from tbl_userregistration where col_username='samjiks'))");    
+			$query = $this->db->query("select col_projectname from tbl_project where col_projectid in (select col_projectid from tbl_projectuserassign where col_userid in (select col_userid from tbl_userregistration where col_username='".$this->db->escape_str($col_username)."'))");    
 			return $query->result_array();
 		/*	if($project_query->num_rows() > 0){
 				foreach ($project_query->result() as $value) {
