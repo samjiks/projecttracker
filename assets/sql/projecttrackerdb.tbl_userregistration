@@ -49,3 +49,16 @@ CREATE TABLE `projecttrackerdb`.`tbl_taskactivity` (
   `col_duration` VARCHAR(10) NULL,
   PRIMARY KEY (`col_taskactivityid`));
 
+ALTER TABLE `projecttrackerdb`.`tbl_taskactivity` 
+DROP COLUMN `col_taskdecription`,
+CHANGE COLUMN `col_taskactualduration` `col_activitydescription` VARCHAR(10) NULL DEFAULT NULL ,
+ADD COLUMN `col_projectid` VARCHAR(45) NULL AFTER `col_taskactivityid`;
+
+
+
+ALTER TABLE `projecttrackerdb`.`tbl_taskactivity` 
+ADD COLUMN `col_completeddate` VARCHAR(45) NULL AFTER `col_activitydescription`;7
+
+ALTER TABLE `projecttrackerdb`.`tbl_taskactivity` 
+CHANGE COLUMN `col_duration` `col_durationworked` VARCHAR(10) NULL DEFAULT NULL ;
+

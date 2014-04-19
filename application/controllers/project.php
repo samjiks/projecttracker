@@ -157,9 +157,33 @@ class Project extends CI_Controller{
 
 		public function create_activity(){
 
+		$data['taskid'] = $this->input->post('taskid');
+		$data['projectid'] = $this->input->post('projectid');
+		$data['ActivityDescription'] = $this->input->post('ActivityDescription');
+		$data['completeddate'] = $this->input->post('completeddate');
+		$data['durationworked'] = $this->input->post('durationworked');
+
+		$result['message'] = $this->project_model->create_activity($data);
+		if($result['message'] == 1){
+			$result['message'] = "Successfully created Activity";
+		}else{
+			$result['message'] = "Did not successfully create a message";
+		}
+			echo json_encode($result);
+		//echo json_encode($result);
+
+
 			//$data['']
 		//	 $this->load->view('templates/header');	
 		//	 $this->load->view('templates/footer');
 
+		}
+
+		public function list_project_tasks(){
+	
+			$result['username'] =  $this->session->userdata('username');
+			$result = $this->project_model->list_project_tasks_Activity($result);
+	
+			//echo json_encode($result);
 		}
 	}

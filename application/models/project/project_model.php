@@ -107,4 +107,39 @@ class Project_model extends CI_Model{
 		return $gettasksname->result_array();
 
 	}
+
+	function create_activity($data=array()){
+		$projectid = $data['projectid'];
+		$taskid = $data['taskid'];
+		$ActivityDescription = $data['ActivityDescription'];
+		$completeddate = $data['completeddate'];
+		$durationworked = $data['durationworked'];
+		$query = $this->db->query("Insert into tbl_taskactivity (col_projectid, col_taskid, col_activitydescription, col_completeddate, col_durationworked ) VALUES ('".$projectid."', '".$taskid."', '".$ActivityDescription."', '".$completeddate."', '".$durationworked."')");
+
+		
+		$num = $this->db->affected_rows();
+		
+		if($num > 0){
+			return $num;
+		}
+		return false;
+	}
+
+	function list_project_tasks_Activity($data=array()){
+		foreach($data as $key => $projectlist){
+		
+			foreach($projectlist as $key1 => $list){
+					var_dump($projectlist);
+				   if(is_array($list)){
+				     	echo "WHAT";
+				   }
+				   else{
+						var_dump($list);
+				   }
+
+			
+			}
+		}
+		//$query = $this->db->query("");
+	}
 }
