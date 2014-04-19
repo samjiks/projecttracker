@@ -1,20 +1,50 @@
 <script>
 
-function gotoactivity(taskid, projectid){
-     var data =  $('.activity-form').data();
-	 data.taskid  = taskid;
-	 data.projectid =  projectid;
-	 $('.activity-form').dialog('open');
- }
+	function gotoactivity(taskid, projectid){
+		$('.activityresponse').empty();
+	     var data =  $('.activity-form').data();
+		 data.taskid  = taskid;
+		 data.projectid =  projectid;
+		 $('.activity-form').dialog('open');
+	 }
 
-function edittask(){
+	// function edittask(){
+	// 		 var data =  $('.activity-form').data();
+	// 		 data.taskid  = taskid;
+	// 		 $('.tasknametd').attr('contenteditable', 'true')
+	// 		 contenteditable='true'
+	// }
 
-}
+	function listactivity(taskid, projectid){
+		$.ajax({
+				type: "post",
+				cache: "false",
+				url: "<?php echo base_url(); ?>index.php/project/list_project_tasks",
+				data: {'taskid': taskid },
+				dataType: "json",
+				success: function(response){
+					$('.list-activity-table').empty();	
+						$('.list-activity-table').html("<thead><tr><th>S. No<th>Activity Description</th><th>Date Completed</th><th>Duration hours</th></tr></thead>>tbody>");
+					for(x in response){
+						var item = "<tr><td>"+x+"</td><td>"+response[x].col_activitydescription+"</td><td>"+response[x].col_completeddate+"</td><td>"+response[x].col_durationworked+"</td><td><a class='edittask'>Edit Activity</a></td><td><a class='deleteactivity'>Delete Activity</a></td></tr>";
+						$('.list-activity-table').append(item);	
+					}
 
-$(document).ready(function(){
+					$('.listresponse').append("</tbody></table>");
 
+				console.log(response);
 
-		$( ".startdate,.enddate,.completeddate" ).datepicker({ dateFormat: 'dd-mm-yy'});
+				},
+				 error: function(jqXHR, textStatus, errorThrown){
+    			    console.log("The following error occured: "+textStatus, errorThrown);
+				}
+		});
+ 			$('.list-activity-form').dialog('open');
+		}
+
+		$(document).ready(function(){
+
+	    		$( ".startdate,.enddate,.completeddate" ).datepicker({ dateFormat: 'dd-mm-yy'});
 
 
 			  $('#projectlink').on("click", this, function (e) {
@@ -57,6 +87,13 @@ $(document).ready(function(){
 			});		  
 		});
 		
+	    $('.list-activity-form').dialog({modal:true,autoOpen:false,width:800,title: "Listing Activities for Task",
+			buttons:{
+				"Close": function(){
+					 $( this ).dialog( "close" );	
+				 }
+   			}			
+	    });
 
 		 $('.activity-form').dialog({modal:true,autoOpen:false,width:500,
 		 	buttons: {
@@ -81,7 +118,6 @@ $(document).ready(function(){
 					  //  $( '.activity-form' ).dialog("close");
 					},
 					error: function(jqXHR, textStatus, errorThrown){
-						 $('#activityresponse').append(response);
 	    			    console.log("The following error occured: "+textStatus, errorThrown);
 					}
 				});
@@ -129,7 +165,7 @@ $(document).ready(function(){
 						self.parent().find('.listresponse').html('<table class="table tbltsklist"><thead><tr><th>Task name</th><th>Start Date</th><th>End Date</th><th>Status</th><th>Percentage complete</th><th>Edit Task</th><th>Create Activity</th></tr></thead><tbody>');
 						
 						for(x in response){
-							var item = "<tr><td>"+response[x].col_taskname+"</td><td>"+response[x].col_startdate+"</td><td>"+response[x].col_enddate+"</td><td>"+response[x].col_statustasks+"</td><td>"+response[x].col_percentage_complete+"</td><td><a href='' class='edittask'>Edit Task</a></td><td><a class='editprojecttask' data-taskid='"+response[x].col_tasksid+"' onClick='gotoactivity("+response[x].col_tasksid+", "+response[x].col_projectid+");' >Create Activity</a></td><td><span id='clickme' class='glyphicon glyphicon-chevron-up'></span></td></tr>";
+							var item = "<tr><td class='tasknametd'>"+response[x].col_taskname+"</td><td>"+response[x].col_startdate+"</td><td>"+response[x].col_enddate+"</td><td>"+response[x].col_statustasks+"</td><td>"+response[x].col_percentage_complete+"</td><td><a href='' class='edittask'>Edit Task</a></td><td><a class='editprojecttask' data-taskid='"+response[x].col_tasksid+"' onClick='gotoactivity("+response[x].col_tasksid+", "+response[x].col_projectid+");' >Create Activity</a></td><td><a onClick='listactivity("+response[x].col_tasksid+", "+response[x].col_projectid+")' id='clickme' class='glyphicon glyphicon-chevron-up'>Open Activities for the Task</a></td></tr>";
 						 	self.parent().find('.listresponse .tbltsklist').append(item);
 						 }	
  	       				self.parent().find('.listresponse').append("</tbody></table>");
@@ -188,6 +224,11 @@ $(document).ready(function(){
 				});
 
 		    });
+
+		    $('.edittask').click(function(e){
+		    	e.preventDefault();
+				$('.tasknametd').attr('contenteditable', 'true')
+			});
 
 
 });
@@ -311,3 +352,11 @@ $(document).ready(function(){
 			    </div>
 			</form>
 		</div>
+<div class="list-activity-form">
+	<table class='table list-activity-table'>
+		<thead>
+			<tr><th>S. No<th>Activity Description</th><th>Date Completed</th><th>Duration hours</th></tr>
+		</thead>
+
+		</table>
+</div>

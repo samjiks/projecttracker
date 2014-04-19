@@ -181,9 +181,8 @@ class Project extends CI_Controller{
 
 		public function list_project_tasks(){
 	
-			$result['username'] =  $this->session->userdata('username');
-			$result = $this->project_model->list_project_tasks_Activity($result);
-	
-			//echo json_encode($result);
+			$taskid  = $this->input->post('taskid');
+			$result = $this->project_model->list_project_tasks_Activity($taskid);
+			echo json_encode($result);
 		}
 	}

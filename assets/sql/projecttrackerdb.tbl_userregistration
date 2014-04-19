@@ -62,3 +62,7 @@ ADD COLUMN `col_completeddate` VARCHAR(45) NULL AFTER `col_activitydescription`;
 ALTER TABLE `projecttrackerdb`.`tbl_taskactivity` 
 CHANGE COLUMN `col_duration` `col_durationworked` VARCHAR(10) NULL DEFAULT NULL ;
 
+ALTER TABLE `projecttrackerdb`.`tbl_taskactivity` 
+CHANGE COLUMN `col_activitydescription` `col_activitydescription` VARCHAR(200) NULL DEFAULT NULL ;
+
+

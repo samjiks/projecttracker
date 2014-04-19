@@ -125,21 +125,9 @@ class Project_model extends CI_Model{
 		return false;
 	}
 
-	function list_project_tasks_Activity($data=array()){
-		foreach($data as $key => $projectlist){
-		
-			foreach($projectlist as $key1 => $list){
-					var_dump($projectlist);
-				   if(is_array($list)){
-				     	echo "WHAT";
-				   }
-				   else{
-						var_dump($list);
-				   }
+	function list_project_tasks_Activity($data){
+		$query = $this->db->query("Select * from tbl_taskactivity where col_taskid ='".$this->db->escape_str($data)."'");
 
-			
-			}
-		}
-		//$query = $this->db->query("");
+		return $query->result_array();
 	}
 }
