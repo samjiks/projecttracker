@@ -36,7 +36,8 @@ class User extends CI_Controller{
 	    	    'col_firstname' => $this->input->post('firstname'), 
 	    	    'col_lastname' => $this->input->post('lastname'),
 	    	    'col_emailaddress' => $this->input->post('emailaddress'),
-	    	    'col_password' => $this->input->post('password'));
+	    	    'col_password' => $this->input->post('password'),
+	    	    'role' => 'user');
 
         $this->load->view('templates/header');	
 		$this->load->model("user/user_model");

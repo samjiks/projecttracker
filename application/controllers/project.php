@@ -18,6 +18,14 @@ class Project extends CI_Controller{
 
 	}
 
+	public function admin(){
+
+	     $this->load->view('templates/header');	
+
+		 $this->load->view('templates/footer');
+
+	}
+
 	public function list_project(){
 
 	     $this->load->view('templates/header');	

@@ -8,12 +8,12 @@
 		 $('.activity-form').dialog('open');
 	 }
 
-	// function edittask(){
-	// 		 var data =  $('.activity-form').data();
-	// 		 data.taskid  = taskid;
-	// 		 $('.tasknametd').attr('contenteditable', 'true')
-	// 		 contenteditable='true'
-	// }
+	function edittask(){
+	      $('.tasknametd').attr('contenteditable', 'true');
+	      alert($('td.tasknametd').eq(0).text());
+	      alert($('td.tasknametd').eq(0).text());
+
+	}
 
 	function listactivity(taskid, projectid){
 		$.ajax({
@@ -26,7 +26,7 @@
 					$('.list-activity-table').empty();	
 						$('.list-activity-table').html("<thead><tr><th>S. No<th>Activity Description</th><th>Date Completed</th><th>Duration hours</th></tr></thead>>tbody>");
 					for(x in response){
-						var item = "<tr><td>"+x+"</td><td>"+response[x].col_activitydescription+"</td><td>"+response[x].col_completeddate+"</td><td>"+response[x].col_durationworked+"</td><td><a class='edittask'>Edit Activity</a></td><td><a class='deleteactivity'>Delete Activity</a></td></tr>";
+						var item = "<tr><td>"+x+"</td><td>"+response[x].col_activitydescription+"</td><td>"+response[x].col_completeddate+"</td><td>"+response[x].col_durationworked+"</td><td><a class='editactivity'>Edit Activity</a></td><td><a class='deleteactivity'>Delete Activity</a></td></tr>";
 						$('.list-activity-table').append(item);	
 					}
 
@@ -44,6 +44,11 @@
 
 		$(document).ready(function(){
 
+
+		    $('#editask').click(function(){
+		        	alert("HI");
+		    });
+
 	    		$( ".startdate,.enddate,.completeddate" ).datepicker({ dateFormat: 'dd-mm-yy'});
 
 
@@ -53,7 +58,7 @@
 			  });
 
 			$('.addtask').on("click", this, function (e) {
-	
+					
     				$(this).next().next().next().toggle('medium');
        		 });
 	
@@ -165,7 +170,7 @@
 						self.parent().find('.listresponse').html('<table class="table tbltsklist"><thead><tr><th>Task name</th><th>Start Date</th><th>End Date</th><th>Status</th><th>Percentage complete</th><th>Edit Task</th><th>Create Activity</th></tr></thead><tbody>');
 						
 						for(x in response){
-							var item = "<tr><td class='tasknametd'>"+response[x].col_taskname+"</td><td>"+response[x].col_startdate+"</td><td>"+response[x].col_enddate+"</td><td>"+response[x].col_statustasks+"</td><td>"+response[x].col_percentage_complete+"</td><td><a href='' class='edittask'>Edit Task</a></td><td><a class='editprojecttask' data-taskid='"+response[x].col_tasksid+"' onClick='gotoactivity("+response[x].col_tasksid+", "+response[x].col_projectid+");' >Create Activity</a></td><td><a onClick='listactivity("+response[x].col_tasksid+", "+response[x].col_projectid+")' id='clickme' class='glyphicon glyphicon-chevron-up'>Open Activities for the Task</a></td></tr>";
+							var item = "<tr><td class='tasknametd'>"+response[x].col_taskname+"</td><td>"+response[x].col_startdate+"</td><td>"+response[x].col_enddate+"</td><td>"+response[x].col_statustasks+"</td><td>"+response[x].col_percentage_complete+"</td><td><a class='edittask' id='edittask' >Edit Task</a></td><td><a class='editprojecttask' data-taskid='"+response[x].col_tasksid+"' onClick='gotoactivity("+response[x].col_tasksid+", "+response[x].col_projectid+");' >Create Activity</a></td><td><a onClick='listactivity("+response[x].col_tasksid+", "+response[x].col_projectid+")' id='clickme' class='glyphicon glyphicon-chevron-up'>Open Activities for the Task</a></td></tr>";
 						 	self.parent().find('.listresponse .tbltsklist').append(item);
 						 }	
  	       				self.parent().find('.listresponse').append("</tbody></table>");
@@ -214,7 +219,6 @@
 					//dataType: "json",
 					success: function(response){
 						$('.projects').append(response);
-							console.log(response);
 					},
 					error: function(jqXHR, textStatus, errorThrown){
 						 $('#activityresponse').append(errorThrown);
@@ -225,11 +229,8 @@
 
 		    });
 
-		    $('.edittask').click(function(e){
-		    	e.preventDefault();
-				$('.tasknametd').attr('contenteditable', 'true')
-			});
 
+		 
 
 });
 </script>
