@@ -1,9 +1,12 @@
-<p class="alert"><?php if(isset($result)){ print_r($result); }  ?></p>
+
 
 <?php 
 //print_r($get_projects);
 
  echo form_open('project/assign_project_save');
+ ?>
+<?php  if(isset($result)) { echo "<p class='alert'>$result</p>"; } 	?>
+ <?
     echo form_label('Project Name', 'projectname');
     if(isset($get_projects) && isset($get_users)){
 		if(is_array($get_projects)){
@@ -21,10 +24,13 @@
 		foreach ($get_users as $key => $value) {
 				echo "<option value=".$value['col_username'].">".$value['col_username']."</option>";		
 		}
-		echo form_submit('save', 'Save');
+		$js = 'onClick="test()"';
+		echo form_submit('save', 'Save', $js);
 		echo "</select>";
 		}
 	}else{
 		echo "not set";
 	}
+
 echo form_close();
+?>

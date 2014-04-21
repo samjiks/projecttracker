@@ -1,12 +1,12 @@
 <script>
-if($('#password').val() == $('#cpassword').val()){
-  
-}
+
 </script>
+
 <div class="wrapper"> <?php
+echo validation_errors(); 
 echo form_open('user/signup');
 ?>
-<<h4>Sign up - Registration Form</h4>
+<h4>Sign up - Registration Form</h4>
 <table>
 <tr>
   <td>
@@ -41,7 +41,7 @@ echo form_open('user/signup');
     <label for="emailaddress">Email address</label>
     </td>
     <td>
-    <input type="email" class="input-large" style="height:30px;" name="emailaddress" id="emailaddress" placeholder="Enter email">
+    <input type="email" class="input-large" style="height:30px;" name="emailaddress" value="<?php echo set_value('emailaddress'); ?>" id="emailaddress" placeholder="Enter email">
 
   </tr>
 </tr>

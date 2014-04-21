@@ -73,20 +73,14 @@
 				cache: "false",
 				url:  "<?php echo base_url(); ?>index.php/project/create_task",
 				data: data,
-				//dataType: "json",
+				dataType: "json",
 	  			 success: function(response){
-	  			 	if(!response){
-	  			 		//$('#response').append("No Tasks created for this project");
-	  			 		$('#response').append(response);
-	  			 		exit;
-	  			 	}
-					$('#response').empty();
-	  			 	for(x in response){
-	  			 		$('#activityresponse').append('<div>'+response[x].col_taskname+'</div>');
-	  			 	}
+	  			 	console.log(response['errors']);
+					$('.response').empty();
+					$('.response').append(response['errors']);
     			},
     			error: function(jqXHR, textStatus, errorThrown){
-    				$('#response').append(response);
+    				$('.response').append(errorThrown);
     			    console.log("The following error occured: "+textStatus, errorThrown);
    				 }
 			});		  
@@ -111,7 +105,7 @@
               	$.ajax({
 					type: "post",
 					cache: "false",
-					url: "<?php echo base_url(); ?>index.php/project/create_activity",
+					url: "<?php echo base_url(); ?>index.php/dproject/create_activity",
 					data: {'taskid' : taskid, 'projectid': projectid, 'ActivityDescription': ActivityDescription, 'completeddate' : completeddate, 'durationworked' : durationworked },
 					dataType: "json",
 					success: function(response){
@@ -251,10 +245,6 @@
 				   <h4 class="content-header">PROJECTS</h4>  
 				     <div class="row">           
 						 <div class="col-md-12" >
-						 <?php echo validation_errors(); ?>
-
-			
-
 							<div class="gui">
 								<div id="listprojects">
 						 		<?php
@@ -266,7 +256,7 @@
 												echo "<a class='listtask' name='projectname' data-projectname='$values'>List Task</a>";
 												echo "<div class='listresponse'  style='display:none'></div>";
 												echo "<div class='panel' style='padding:10px; display:none'>
-												<div id='response'></div>
+												<div class='response'></div>
 												<form id ='form' class='form-horizontal' role='form'>
 												 <div class='form-group'>
 												  <label for='projectid' class='col-sm-3 control-label'>Project Name</label>

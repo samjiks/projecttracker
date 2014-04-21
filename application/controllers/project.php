@@ -14,18 +14,11 @@ class Project extends CI_Controller{
 		foreach($array as $key => $value){
 			$this->load->model($key, $value);
 		}
-
-
-	}
-
-	public function admin(){
-
-	     $this->load->view('templates/header');	
-
-		 $this->load->view('templates/footer');
+		$this->form_validation->set_error_delimiters('<p class="alert">', '</p>');
 
 	}
 
+	
 	public function list_project(){
 
 	     $this->load->view('templates/header');	
@@ -61,10 +54,7 @@ class Project extends CI_Controller{
 	public function create_project(){
 
 	     $this->load->view('templates/header');	
-	     $data['col_username'] = "admin";
-	     $this->load->view('user/home', $data);
-	     $this->load->view('templates/adminsidebar');
-	     $this->load->view('project/create');
+	     $this->load->view('admin/admin');
 		 $this->load->view('templates/footer');
 
 	}
@@ -92,37 +82,25 @@ class Project extends CI_Controller{
 
 	public function assign_project(){
 
- 		 $this->load->view('templates/header');	
- 		 $this->load->view('templates/adminsidebar');
-		 
-
-
 		$data['get_projects'] = $this->project_model->list_projects();
 		$data['get_users'] = $this->user_model->list_users();
-
 		$this->load->view('project/assignproject', $data);
-
-		$this->load->view('templates/footer');
 	}
 
 	public function assign_project_save(){
 		 
-		$this->load->view('templates/header');	
- 		$this->load->view('templates/adminsidebar');
-
 		$data['projectname'] = $this->input->post('projects');
 		$data['username'] = $this->input->post('users');
 
 		$result = $this->project_model->assign_project($data);
-		$message['result'] = "Project has been assigned to the user";
+		$result['message'] = "Project has been assigned to the user";
 
 		if($result > 0){
-		
-			$this->load->view('project/assignproject', $message);
+			
+			echo json_encode("Project has been assigned to the user");
 		}
 
-		$this->load->view('templates/footer');
-		}
+	}
 
 		public function create_task(){
 			
@@ -133,19 +111,20 @@ class Project extends CI_Controller{
 			$data['percentage'] = $this->input->post('percentage');
 			$data['projecthiddenid'] = $this->input->post('projecthiddenid');
 			
-			$this->form_validation->set_rules('taskname', 'Task name', 'required');
-			$this->form_validation->set_rules('startdate', 'Start date', 'required');
-			$this->form_validation->set_rules('enddate', 'End date', 'required');
-			$this->form_validation->set_rules('status', 'Status', 'required');
-			$this->form_validation->set_rules('percentage', 'Percentage Completed', 'required');
-			$this->form_validation->set_rules('projecthiddenid', 'ProjectID', 'required');
+			$this->form_validation->set_rules('taskname', 'Task name', 'trim|required');
+			$this->form_validation->set_rules('startdate', 'Start date', 'trim|required');
+			$this->form_validation->set_rules('enddate', 'End date', 'trim|required');
+			$this->form_validation->set_rules('status', 'Status', 'trim|required');
+			$this->form_validation->set_rules('percentage', 'Percentage Completed', 'trim|required');
+			$this->form_validation->set_rules('projecthiddenid', 'ProjectID', 'trim|required');
 
 			if ($this->form_validation->run() == TRUE){
 				$result = $this->project_model->get_tasks_by_project($data);
 				echo json_encode($result);
 			}else{
-				$this->load->view('user/home');
-				validation_errors(); 				
+				//$this->load->view('user/home');	
+				echo json_encode(array('errors' => validation_errors()));			
+				//echo "TEST";
 			}
 		/*	
 			if(empty($result)){

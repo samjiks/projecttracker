@@ -38,8 +38,6 @@ class Project_model extends CI_Model{
    				$data['userid'] = $row->col_userid;
 			}
 		}
-		echo "USER ID".$data['userid'];
-		echo "PROJECT ID".$data['projectid'];
 		$this->db->set('col_userid',$data['userid']);
 		$this->db->set('col_projectid',$data['projectid']);
 		$this->db->insert('tbl_projectuserassign'); 
